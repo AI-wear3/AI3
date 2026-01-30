@@ -46,6 +46,7 @@ void loop() {
   
   // 디버깅을 위해 평소 값을 계속 확인하세요
   Serial.print("Touch Value: ");
+
   Serial.println(touchValue);
 
   if (touchValue >= TOUCH_THRESHOLD) {
@@ -58,3 +59,5 @@ void loop() {
   
   delay(100);
 }
+
+
