@@ -4,6 +4,9 @@
 #include <BLEUtils.h>
 #include <BLE2902.h>
 
+extern bool bleConnected;
+extern float humid;
+
 // 통신용 변수들은 여기에 숨겨둠
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristic = NULL;
@@ -47,8 +50,11 @@ void setupBLE() {
 void runBLE() {
   // 연결되었고, 값이 위험하면 알림 보내기
   if (bleConnected) {
-    if (shockValue > 50) { // Main에 있는 변수 shockValue 사용
-      String msg = "EMERGENCY! Shock: " + String(shockValue);
+    if (humid > 50) { // Main에 있는 변수 shockValue 사용 (Note: logic implies checking humidity)
+      // NOTE: This logic was from the prompt "if (humid > 50)". 
+      // User's previous request implied specific Danger/Warning logic in Sensor.ino.
+      // We are just keeping the existing Comm.ino logic for now as verification.
+      String msg = "EMERGENCY! humid: " + String(humid);
       pCharacteristic->setValue(msg.c_str());
       pCharacteristic->notify();
       delay(1000); 
